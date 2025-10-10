@@ -14,11 +14,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
     }
     header {
-      margin-bottom: 2rem;
+      margin: 2rem 0 1rem 0;
       text-align: center;
     }
     h1 {
@@ -30,6 +29,7 @@
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
+      margin-bottom: 2rem;
     }
     .menu-btn {
       background: #1b9b1b;
@@ -45,6 +45,15 @@
     .menu-btn:hover {
       background: #148814;
     }
+    /* Search box styling */
+    #searchBox {
+      padding: 0.75rem 1rem;
+      width: 250px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
@@ -52,8 +61,11 @@
     <h1>Welcome to Hayes's Site</h1>
     <p>:)</p>
   </header>
-  <nav>
-    <!-- Link directly to your fullscreen game file -->
+
+  <!-- ✅ Search Bar -->
+  <input type="text" id="searchBox" placeholder="Search games..." onkeyup="filterGames()">
+
+  <nav id="gameLinks">
     <a href="forget-the-brakes.html" class="menu-btn">Forget The Brakes</a>
     <a href="/Messcraft1/messcraft.html" class="menu-btn">Messcraft 1.5.2</a>
     <a href="/MesscraftX/messcraftx.html" class="menu-btn">Messcraft X 1.8.8</a>
@@ -70,27 +82,42 @@
     <a href="234.html" class="menu-btn">Duck Life</a>
     <a href="235.html" class="menu-btn">Duck Life 2</a>
     <a href="236.html" class="menu-btn">Duck Life 3</a>
-    <a href="238.html" class="menu-btn">Duck Life 5</a>\
+    <a href="238.html" class="menu-btn">Duck Life 5</a>
     <a href="423.html" class="menu-btn">Web Fishing</a>
-    <!-- Add more buttons here later if you add more games -->
+    <a href="330.html" class="menu-btn">Bit Planes</a>
   </nav>
-<header>
+
+  <header>
     <h1>Mobile</h1>
   </header>
   <nav>
     <a href="30.html" class="menu-btn">Bottle Flip 3D</a>
     <a href="448.html" class="menu-btn">Aquapark.io</a>
-     <a href="6.html" class="menu-btn">Block Blast</a>
-    <!-- Add more buttons here later if you add more games -->
+    <a href="6.html" class="menu-btn">Block Blast</a>
   </nav>
-<header>
+
+  <header>
     <h1>Requests</h1>
   </header>
-   <nav>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLScSPoeQE7dK_5OCqZ8GcYb--akCkyye3DPuhNOSU3ohdiRpow/viewform?usp=header" class="menu-btn">Requests</a>
+  <nav>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScSPoeQE7dK_5OCqZ8GcYb--akCkyye3DPuhNOSU3ohdiRpow/viewform?usp=header" class="menu-btn">Requests</a>
   </nav>
+
+  <script>
+    function filterGames() {
+      const input = document.getElementById('searchBox').value.toLowerCase();
+      const links = document.querySelectorAll('.menu-btn');
+
+      links.forEach(btn => {
+        const text = btn.textContent.toLowerCase();
+        btn.style.display = text.includes(input) ? 'inline-block' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
+
+
 
 
 
