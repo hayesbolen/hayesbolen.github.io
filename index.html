@@ -12,7 +12,7 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: "IBM Plex Mono", monospace; /* ✅ Apply to all text */
       background: #111;
       color: #fff;
       display: flex;
@@ -21,7 +21,42 @@
       min-height: 100vh;
     }
 
-    /* ✅ Updated search box styling */
+    header {
+      margin: 2rem 0 1rem 0;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .menu-btn {
+      background: #1b9b1b;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background 0.3s;
+      font-family: "IBM Plex Mono", monospace; /* ✅ Buttons match */
+    }
+
+    .menu-btn:hover {
+      background: #148814;
+    }
+
+    /* ✅ Search box styling */
     #searchBox {
       padding: 0.75rem 1rem;
       width: 250px;
@@ -29,16 +64,17 @@
       border-radius: 8px;
       font-size: 1rem;
       margin-bottom: 1.5rem;
-      background: #000;              /* Black background */
-      color: #fff;                  /* White text */
-      font-family: "IBM Plex Mono", monospace; /* IBM Plex Mono font */
+      background: #000;
+      color: #fff;
+      font-family: "IBM Plex Mono", monospace;
     }
 
     #searchBox::placeholder {
-      color: #888; /* Dim placeholder so it's visible */
+      color: #888;
     }
   </style>
 </head>
+
 
 <body>
   <header>
@@ -104,6 +140,7 @@
   </script>
 </body>
 </html>
+
 
 
 
