@@ -73,6 +73,14 @@
       color: #888;
     }
   </style>
+  
+  <script>
+  // Redirect non-mobile users to desktop site
+  if (!/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    window.location.href = "index.html";
+  }
+</script>
+
 </head>
 
 
@@ -85,10 +93,7 @@
   <!-- ✅ Search Bar -->
   <input type="text" id="searchBox" placeholder="Search games..." onkeyup="filterGames()">
 
-  <header>
-    <h1>Mobile</h1>
-  </header>
-  
+
   <nav id="gameLinks">
     <a href="forget-the-brakes.html" class="menu-btn">Forget The Brakes</a>
     <a href="basketrandom/index.html" class="menu-btn">Basket Random</a>  
