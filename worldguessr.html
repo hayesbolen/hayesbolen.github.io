@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fullscreen Embed</title>
+  <style>
+    /* make the embed fill the viewport */
+    html, body { height: 100%; margin: 0; }
+    #embed { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+    /* helpful placeholder shown when no src is provided */
+    #placeholder { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #111; color: #eee; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    #placeholder a { color: #8fd; }
+  </style>
+</head>
+<body>
+  <!--
+    Usage:
+      1) Edit the file and replace the iframe src value below with the URL you want embedded.
+      2) Or open this file in a browser with a query string: fullscreen-embed.html?src=https://example.com
+    Note: for video or pages that require fullscreen permissions, the iframe includes allowfullscreen and common "allow" attributes.
+  -->
+
+  <iframe id="embed" src="https://worldguessr.coolmathgames.com/" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+
+  <div id="placeholder" hidden>
+    No embed URL provided.
+    <div style="margin-left:8px">Open with <code>?src=https://example.com</code> or edit the file to set the iframe <code>src</code>.</div>
+  </div>
+
+  <script>
+    // set src from query string if provided
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const src = params.get('src');
+      const iframe = document.getElementById('embed');
+      const placeholder = document.getElementById('placeholder');
+      if(src) {
+        iframe.src = src;
+        placeholder.hidden = true;
+      } else if (iframe.getAttribute('src') && iframe.getAttribute('src') !== 'about:blank') {
+        // keep whatever src is already in the file
+        placeholder.hidden = true;
+      } else {
+        // show placeholder overlay so user knows to provide a src
+        iframe.style.display = 'none';
+        placeholder.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>
