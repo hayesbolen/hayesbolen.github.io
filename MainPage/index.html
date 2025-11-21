@@ -184,12 +184,12 @@
     }
   </script>
 
-  <!-- GLOBAL COUNTER SCRIPT -->
+  <!-- FIXED WORKING GLOBAL COUNTER -->
   <script>
     const namespace = "hayesbolen_site_counter";
     const key = "homepage_visits";
 
-    fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+    fetch(`https://countapi.xyz/hit/${namespace}/${key}`)
       .then(res => res.json())
       .then(data => {
         document.getElementById("globalCounter").textContent =
