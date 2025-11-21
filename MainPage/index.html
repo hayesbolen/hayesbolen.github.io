@@ -98,6 +98,38 @@
       document.title = document.getElementById("titleInput").value;
     }
   </script>
+
+<p id="globalCounter" style="
+    background:#000;
+    border:1px solid #444;
+    padding:10px 20px;
+    border-radius:8px;
+    color:#1b9b1b;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1rem;
+    text-align:center;
+    margin-top:20px;
+">
+  Loading global visits...
+</p>
+
+<script>
+// Create a unique namespace and key for your site
+const namespace = "hayesbolen_site_counter";
+const key = "homepage_visits";
+
+// STEP 1: Increase the global count
+fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+  .then(res => res.json())
+  .then(data => {
+      document.getElementById("globalCounter").textContent =
+          "🌐 Global Visits: " + data.value;
+  })
+  .catch(() => {
+      document.getElementById("globalCounter").textContent =
+          "Error loading global counter";
+  });
+</script>
 </head>
 
 <body>
@@ -179,4 +211,5 @@
 
 </body>
 </html>
+
 
