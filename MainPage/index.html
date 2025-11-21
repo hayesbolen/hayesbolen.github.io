@@ -6,13 +6,13 @@
   <title>Hayes' Site</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-  <!-- ✅ Import IBM Plex Mono -->
+  <!-- Import IBM Plex Mono -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      font-family: "IBM Plex Mono", monospace; /* ✅ Apply to all text */
+      font-family: "IBM Plex Mono", monospace;
       background: #111;
       color: #fff;
       display: flex;
@@ -49,14 +49,13 @@
       font-size: 1rem;
       font-weight: bold;
       transition: background 0.3s;
-      font-family: "IBM Plex Mono", monospace; /* ✅ Buttons match */
+      font-family: "IBM Plex Mono", monospace;
     }
 
     .menu-btn:hover {
       background: #148814;
     }
 
-    /* ✅ Search box styling */
     #searchBox {
       padding: 0.75rem 1rem;
       width: 250px;
@@ -72,30 +71,54 @@
     #searchBox::placeholder {
       color: #888;
     }
+
+    /* Title editor styling */
+    #titleInput {
+      padding: 0.6rem 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      width: 260px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background: #000;
+      color: #fff;
+      font-size: 1rem;
+      font-family: "IBM Plex Mono", monospace;
+    }
   </style>
 
-  
   <script>
     // Redirect mobile users
     if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       window.location.href = "mobile.html";
     }
+
+    // Update <title> live
+    function updatePageTitle() {
+      document.title = document.getElementById("titleInput").value;
+    }
   </script>
-
-
 </head>
 
-
 <body>
+
+  <!-- Title editor -->
+  <input
+    id="titleInput"
+    type="text"
+    placeholder="Type new page title..."
+    oninput="updatePageTitle()"
+  />
+
   <header>
     <h1>Welcome to Hayes Bolen's Site</h1>
     <p>:)</p>
   </header>
+
   <img src="me.png" alt="Hayes Bolen">
 
-  <!-- ✅ Search Bar -->
+  <!-- Search Bar -->
   <input type="text" id="searchBox" placeholder="Search games..." onkeyup="filterGames()">
-
 
   <nav id="gameLinks">
     <a href="../forget-the-brakes.html" class="menu-btn">Forget The Brakes</a>
@@ -106,7 +129,7 @@
     <a href="../tetris.html" class="menu-btn">Tetris</a>
     <a href="../basketrandom/index.html" class="menu-btn">Basket Random</a>
     <a href="../raft/index.html" class="menu-btn">Raft</a>
-    <a href="../444.html" class="menu-btn">Age of Conflict</a>    
+    <a href="../444.html" class="menu-btn">Age of Conflict</a>
     <a href="../267.html" class="menu-btn">Pizza Tower</a>
     <a href="../27.html" class="menu-btn">Geometry Dash</a>
     <a href="../456.html" class="menu-btn">Undertale Yellow</a>
@@ -124,15 +147,15 @@
     <a href="../worldcup.html" class="menu-btn">A Small World Cup</a>
     <a href="../snowrider3d.html" class="menu-btn">Snow Rider 3D</a>
     <a href="../crazycattle.html" class="menu-btn">Crazy Cattle 3D</a>
-    <a href="../goiscratch.html" class="menu-btn">Getting Over It Scratch Edition</a> 
+    <a href="../goiscratch.html" class="menu-btn">Getting Over It Scratch Edition</a>
     <a href="../car game.html" class="menu-btn">Survival Race</a>
     <a href="../retrobowl/index.html" class="menu-btn">Retro Bowl</a>
   </nav>
 
-  
   <header>
     <h1>Extras</h1>
   </header>
+
   <nav>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLScSPoeQE7dK_5OCqZ8GcYb--akCkyye3DPuhNOSU3ohdiRpow/viewform?usp=header" class="menu-btn">Requests</a>
     <a href="coolweb.html" class="menu-btn">Cool Websites</a>
@@ -152,72 +175,6 @@
       });
     }
   </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
