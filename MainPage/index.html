@@ -6,6 +6,7 @@
   <title>Hayes' Site</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
+  <!-- IBM Plex Mono -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 
   <style>
@@ -28,44 +29,6 @@
     h1 {
       font-size: 2rem;
       margin: 0;
-    }
-
-    #visitCounter, #globalCounter {
-      margin-top: 0.5rem;
-      color: #1b9b1b;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-
-    #titleChangerBox {
-      margin-top: 1rem;
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-
-    #newTitleInput {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background: #000;
-      border: 1px solid #444;
-      color: #fff;
-      font-family: "IBM Plex Mono", monospace;
-    }
-
-    #applyTitleBtn {
-      background: #1b9b1b;
-      color: white;
-      padding: 0.5rem 1.2rem;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-family: "IBM Plex Mono", monospace;
-    }
-
-    #applyTitleBtn:hover {
-      background: #148814;
     }
 
     nav {
@@ -109,6 +72,47 @@
       color: #888;
     }
 
+    /* Online users text */
+    #onlineUsers {
+      margin-top: 0.4rem;
+      font-size: 1.1rem;
+      color: #1b9b1b;
+    }
+
+    /* Title changer box */
+    #titleChanger {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #newTitle {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #000;
+      color: #fff;
+      width: 220px;
+    }
+
+    #setTitleBtn {
+      background: #1b9b1b;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+    }
+
+    #setTitleBtn:hover {
+      background: #148814;
+    }
   </style>
 
   <script>
@@ -117,28 +121,26 @@
       window.location.href = "mobile.html";
     }
   </script>
+
 </head>
 
 <body>
   <header>
     <h1>Welcome to Hayes Bolen's Site</h1>
+    <p>:)</p>
 
-    <!-- 🔥 GLOBAL VISIT COUNTER -->
-    <div id="globalCounter">Loading global visits...</div>
+    <!-- ✅ Online Users Counter -->
+    <p id="onlineUsers">Online Users: Loading...</p>
 
-    <!-- 💾 LOCAL VISIT COUNTER -->
-    <div id="visitCounter"></div>
-
-    <!-- ✏ TITLE CHANGER -->
-    <div id="titleChangerBox">
-      <input id="newTitleInput" type="text" placeholder="New page title...">
-      <button id="applyTitleBtn">Apply</button>
+    <!-- ✅ Title Changer UI -->
+    <div id="titleChanger">
+      <input id="newTitle" type="text" placeholder="New page title...">
+      <button id="setTitleBtn" onclick="changeTitle()">Set Title</button>
     </div>
   </header>
 
   <img src="me.png" alt="Hayes Bolen">
 
-  <!-- Search Bar -->
   <input type="text" id="searchBox" placeholder="Search games..." onkeyup="filterGames()">
 
   <nav id="gameLinks">
@@ -168,7 +170,7 @@
     <a href="../worldcup.html" class="menu-btn">A Small World Cup</a>
     <a href="../snowrider3d.html" class="menu-btn">Snow Rider 3D</a>
     <a href="../crazycattle.html" class="menu-btn">Crazy Cattle 3D</a>
-    <a href="../goiscratch.html" class="menu-btn">Getting Over It (Scratch)</a>
+    <a href="../goiscratch.html" class="menu-btn">Getting Over It Scratch Edition</a>
     <a href="../car game.html" class="menu-btn">Survival Race</a>
     <a href="../retrobowl/index.html" class="menu-btn">Retro Bowl</a>
   </nav>
@@ -183,38 +185,56 @@
     <a href="https://hayesbolen.github.io/smartframe" class="menu-btn">My Smartframe Project</a>
   </nav>
 
-  <img src="daphne.jpg" alt="Daphne">
+  <img src="daphne.jpg" alt="Daphne, Josh Steinhauff's Dog">
 
   <script>
-    // 🔥 GLOBAL VISIT COUNTER (countapi.xyz)
-    fetch("https://api.countapi.xyz/hit/hayesbolen.github.io/visits")
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("globalCounter").textContent =
-          "Global Visits: " + data.value.toLocaleString();
-      })
-      .catch(() => {
-        document.getElementById("globalCounter").textContent =
-          "Global visits unavailable";
-      });
+    /* -----------------------------
+       🔵 Online Users Counter
+    ----------------------------- */
+    const TAB_ID = Math.random().toString(36).substr(2, 9);
+    const HEARTBEAT_KEY = "online_users_heartbeat";
 
-    // 💾 LOCAL VISIT COUNTER
-    let visits = localStorage.getItem("hayes_site_visits");
-    if (!visits) visits = 0;
-    visits++;
-    localStorage.setItem("hayes_site_visits", visits);
-    document.getElementById("visitCounter").textContent =
-      "Your Visits: " + visits;
+    function updateHeartbeat() {
+      const data = JSON.parse(localStorage.getItem(HEARTBEAT_KEY) || "{}");
+      data[TAB_ID] = Date.now();
+      localStorage.setItem(HEARTBEAT_KEY, JSON.stringify(data));
+    }
 
-    // ✏ TITLE CHANGER
-    document.getElementById("applyTitleBtn").onclick = function () {
-      const newTitle = document.getElementById("newTitleInput").value.trim();
+    function countOnlineUsers() {
+      const data = JSON.parse(localStorage.getItem(HEARTBEAT_KEY) || "{}");
+      const now = Date.now();
+      let count = 0;
+
+      for (const id in data) {
+        if (now - data[id] < 12000) count++;
+      }
+
+      document.getElementById("onlineUsers").textContent =
+        `Online Users: ${count}`;
+    }
+
+    setInterval(() => {
+      updateHeartbeat();
+      countOnlineUsers();
+    }, 5000);
+
+    updateHeartbeat();
+    countOnlineUsers();
+
+
+    /* -----------------------------
+       🟢 Title changer
+    ----------------------------- */
+    function changeTitle() {
+      const newTitle = document.getElementById("newTitle").value.trim();
       if (newTitle.length > 0) {
         document.title = newTitle;
       }
-    };
+    }
 
-    // 🔍 FILTER SEARCH
+    /* -----------------------------
+       🔍 Search Filter
+    ----------------------------- */
     function filterGames() {
       const input = document.getElementById('searchBox').value.toLowerCase();
       const links = document.querySelectorAll('.menu-btn');
