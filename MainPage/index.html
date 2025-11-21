@@ -72,24 +72,9 @@
       color: #888;
     }
 
-    /* Online users text */
-    #onlineUsers {
-      margin-top: 0.4rem;
-      font-size: 1.1rem;
-      color: #1b9b1b;
-    }
-
-    /* Title changer box */
-    #titleChanger {
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    #newTitle {
+    /* Title changer input */
+    #titleChangerInput {
+      margin-top: 1rem;
       padding: 0.5rem 1rem;
       font-size: 1rem;
       border: 1px solid #444;
@@ -97,21 +82,6 @@
       background: #000;
       color: #fff;
       width: 220px;
-    }
-
-    #setTitleBtn {
-      background: #1b9b1b;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      color: white;
-      font-weight: bold;
-    }
-
-    #setTitleBtn:hover {
-      background: #148814;
     }
   </style>
 
@@ -129,14 +99,8 @@
     <h1>Welcome to Hayes Bolen's Site</h1>
     <p>:)</p>
 
-    <!-- ✅ Online Users Counter -->
-    <p id="onlineUsers">Online Users: Loading...</p>
-
-    <!-- ✅ Title Changer UI -->
-    <div id="titleChanger">
-      <input id="newTitle" type="text" placeholder="New page title...">
-      <button id="setTitleBtn" onclick="changeTitle()">Set Title</button>
-    </div>
+    <!-- Live Title Changer -->
+    <input id="titleChangerInput" type="text" placeholder="Type to change page title...">
   </header>
 
   <img src="me.png" alt="Hayes Bolen">
@@ -185,66 +149,24 @@
     <a href="https://hayesbolen.github.io/smartframe" class="menu-btn">My Smartframe Project</a>
   </nav>
 
-  <img src="daphne.jpg" alt="Daphne, Josh Steinhauff's Dog">
+  <img src="daphne.jpg" alt="Daphne">
 
   <script>
-    /* -----------------------------
-       🔵 Online Users Counter
-    ----------------------------- */
-    const TAB_ID = Math.random().toString(36).substr(2, 9);
-    const HEARTBEAT_KEY = "online_users_heartbeat";
+    // ✏ LIVE TITLE CHANGER
+    const titleInput = document.getElementById("titleChangerInput");
+    titleInput.addEventListener("input", () => {
+      document.title = titleInput.value || "Hayes' Site";
+    });
 
-    function updateHeartbeat() {
-      const data = JSON.parse(localStorage.getItem(HEARTBEAT_KEY) || "{}");
-      data[TAB_ID] = Date.now();
-      localStorage.setItem(HEARTBEAT_KEY, JSON.stringify(data));
-    }
-
-    function countOnlineUsers() {
-      const data = JSON.parse(localStorage.getItem(HEARTBEAT_KEY) || "{}");
-      const now = Date.now();
-      let count = 0;
-
-      for (const id in data) {
-        if (now - data[id] < 12000) count++;
-      }
-
-      document.getElementById("onlineUsers").textContent =
-        `Online Users: ${count}`;
-    }
-
-    setInterval(() => {
-      updateHeartbeat();
-      countOnlineUsers();
-    }, 5000);
-
-    updateHeartbeat();
-    countOnlineUsers();
-
-
-    /* -----------------------------
-       🟢 Title changer
-    ----------------------------- */
-    function changeTitle() {
-      const newTitle = document.getElementById("newTitle").value.trim();
-      if (newTitle.length > 0) {
-        document.title = newTitle;
-      }
-    }
-
-    /* -----------------------------
-       🔍 Search Filter
-    ----------------------------- */
+    // 🔍 SEARCH FILTER
     function filterGames() {
       const input = document.getElementById('searchBox').value.toLowerCase();
       const links = document.querySelectorAll('.menu-btn');
-
       links.forEach(btn => {
         const text = btn.textContent.toLowerCase();
         btn.style.display = text.includes(input) ? 'inline-block' : 'none';
       });
     }
   </script>
-
 </body>
 </html>
