@@ -56,6 +56,7 @@
       background: #148814;
     }
 
+    /* Search box styling */
     #searchBox {
       padding: 0.75rem 1rem;
       width: 250px;
@@ -71,20 +72,6 @@
     #searchBox::placeholder {
       color: #888;
     }
-
-    /* Title editor styling */
-    #titleInput {
-      padding: 0.6rem 1rem;
-      margin-top: 1.5rem;
-      margin-bottom: 1rem;
-      width: 260px;
-      border: 1px solid #444;
-      border-radius: 8px;
-      background: #000;
-      color: #fff;
-      font-size: 1rem;
-      font-family: "IBM Plex Mono", monospace;
-    }
   </style>
 
   <script>
@@ -92,59 +79,48 @@
     if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       window.location.href = "mobile.html";
     }
-
-    // Update <title> live
-    function updatePageTitle() {
-      document.title = document.getElementById("titleInput").value;
-    }
   </script>
-
-<p id="globalCounter" style="
-    background:#000;
-    border:1px solid #444;
-    padding:10px 20px;
-    border-radius:8px;
-    color:#1b9b1b;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:1rem;
-    text-align:center;
-    margin-top:20px;
-">
-  Loading global visits...
-</p>
-
-<script>
-// Create a unique namespace and key for your site
-const namespace = "hayesbolen_site_counter";
-const key = "homepage_visits";
-
-// STEP 1: Increase the global count
-fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-  .then(res => res.json())
-  .then(data => {
-      document.getElementById("globalCounter").textContent =
-          "🌐 Global Visits: " + data.value;
-  })
-  .catch(() => {
-      document.getElementById("globalCounter").textContent =
-          "Error loading global counter";
-  });
-</script>
 </head>
 
 <body>
-
-  <!-- Title editor -->
-  <input
-    id="titleInput"
-    type="text"
-    placeholder="Type new page title..."
-    oninput="updatePageTitle()"
-  />
-
   <header>
     <h1>Welcome to Hayes Bolen's Site</h1>
     <p>:)</p>
+
+    <!-- GLOBAL VISIT COUNTER -->
+    <p id="globalCounter" style="
+        background:#000;
+        border:1px solid #444;
+        padding:10px 20px;
+        border-radius:8px;
+        color:#1b9b1b;
+        font-family:'IBM Plex Mono', monospace;
+        font-size:1rem;
+        text-align:center;
+        margin-top:20px;
+    ">
+      Loading global visits...
+    </p>
+
+    <!-- TITLE CHANGER -->
+    <input
+      id="titleInput"
+      type="text"
+      placeholder="Set page title..."
+      oninput="document.title = this.value"
+      style="
+        padding:0.75rem 1rem;
+        width:250px;
+        border:1px solid #444;
+        border-radius:8px;
+        font-size:1rem;
+        margin-top:15px;
+        background:#000;
+        color:#fff;
+        font-family:'IBM Plex Mono', monospace;
+        text-align:center;
+      "
+    />
   </header>
 
   <img src="me.png" alt="Hayes Bolen">
@@ -172,31 +148,30 @@ fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
     <a href="../238.html" class="menu-btn">Duck Life 5</a>
     <a href="../423.html" class="menu-btn">Web Fishing</a>
     <a href="../330.html" class="menu-btn">Bit Planes</a>
-    <a href="../trashroyale.html" class="menu-btn">Trash Royale (Bad Clash Royale)</a>
+    <a href="../trashroyale.html" class="menu-btn">Trash Royale</a>
     <a href="../30.html" class="menu-btn">Bottle Flip 3D</a>
     <a href="../448.html" class="menu-btn">Aquapark.io</a>
     <a href="../6.html" class="menu-btn">Block Blast</a>
     <a href="../worldcup.html" class="menu-btn">A Small World Cup</a>
     <a href="../snowrider3d.html" class="menu-btn">Snow Rider 3D</a>
     <a href="../crazycattle.html" class="menu-btn">Crazy Cattle 3D</a>
-    <a href="../goiscratch.html" class="menu-btn">Getting Over It Scratch Edition</a>
+    <a href="../goiscratch.html" class="menu-btn">Getting Over It (Scratch)</a>
     <a href="../car game.html" class="menu-btn">Survival Race</a>
     <a href="../retrobowl/index.html" class="menu-btn">Retro Bowl</a>
-    <a href="../soccerrandom/index.html" class="menu-btn">Soccer Random</a>
   </nav>
 
   <header>
     <h1>Extras</h1>
   </header>
-
   <nav>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLScSPoeQE7dK_5OCqZ8GcYb--akCkyye3DPuhNOSU3ohdiRpow/viewform?usp=header" class="menu-btn">Requests</a>
     <a href="coolweb.html" class="menu-btn">Cool Websites</a>
     <a href="https://hayesbolen.github.io/smartframe" class="menu-btn">My Smartframe Project</a>
   </nav>
 
-  <img src="daphne.jpg" alt="Daphne, Josh Steinhauff's Dog">
+  <img src="daphne.jpg" alt="Daphne">
 
+  <!-- Filter Script -->
   <script>
     function filterGames() {
       const input = document.getElementById('searchBox').value.toLowerCase();
@@ -209,7 +184,22 @@ fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
     }
   </script>
 
+  <!-- GLOBAL COUNTER SCRIPT -->
+  <script>
+    const namespace = "hayesbolen_site_counter";
+    const key = "homepage_visits";
+
+    fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("globalCounter").textContent =
+          "🌐 Global Visits: " + data.value;
+      })
+      .catch(() => {
+        document.getElementById("globalCounter").textContent =
+          "Error loading global counter";
+      });
+  </script>
+
 </body>
 </html>
-
-
